@@ -1,0 +1,13 @@
+{
+    "type": "postgres",
+    "port": 65432,
+    "host": "localhost",
+    "username": "postgres",
+    "password": "postgres",
+    "database": "tracktoo",
+    "migrations": ["./src/shared/infra/database/migrations/*.{ts,js}"],
+    "entities": ["./src/modules/**/infra/typeorm/entities/*.entity.{ts,js}"],
+    "cli": {
+      "migrationsDir": "./src/shared/infra/database/migrations"
+    }
+  }
