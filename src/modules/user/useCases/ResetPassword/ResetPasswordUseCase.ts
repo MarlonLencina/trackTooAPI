@@ -44,7 +44,6 @@ export class ResetPasswordUseCase {
 
         user.password = hashedNewPassword
 
-        console.log(user)
 
         await this.UsersRepository.createUser(user)
 

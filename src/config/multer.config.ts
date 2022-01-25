@@ -4,8 +4,6 @@ import path from "path"
 
 export const pathAvatars = path.resolve(__dirname, '..', '..', 'uploads')
 
-console.log(pathAvatars)
-
 export const storage = multer.diskStorage({
     destination: function(req, file, cb){
         cb(null, pathAvatars)

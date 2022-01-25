@@ -24,9 +24,8 @@ export class UploadAvatarUseCase {
     public async execute({
         file,
         user_id
-    }: IRequest): Promise<User> {
-
-        
+    }: IRequest): Promise<User> 
+    {        
         const user = await this.UsersRepository.findUserById(user_id)
 
         if(!user){

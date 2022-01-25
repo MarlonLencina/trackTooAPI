@@ -38,7 +38,6 @@ export class SendForgotPasswordUseCase {
             user_id: user.id
         })
 
-        console.log(newToken)
 
         return {
             token: newToken

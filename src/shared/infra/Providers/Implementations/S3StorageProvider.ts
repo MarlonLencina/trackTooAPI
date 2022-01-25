@@ -17,8 +17,6 @@ export class S3StorageProvider implements IStorageProvider {
   public async save(folder: string, file: string, type: string): Promise<string> {
     const originalName = path.resolve(pathAvatars, file); // find file
     
-    console.log(originalName)
-
     const fileContent = await fs.promises.readFile(originalName); // read file
 
     await this.client
@@ -37,7 +35,6 @@ export class S3StorageProvider implements IStorageProvider {
   }
 
   public async delete(folder: string, file: string): Promise<void> {
-
 
     await this.client.deleteObject({
         Bucket: process.env.AWS_S3_BUCKETNAME,
