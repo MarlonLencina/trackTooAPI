@@ -12,10 +12,10 @@ export class UsersRepository implements IUsersRepository {
     }
 
 
-    public async createUser({email, name, last_name, password, id}: ICreateUserDTO): Promise<User> {
+    public async createUser({email, name, last_name, password, id, avatar}: ICreateUserDTO): Promise<User> {
 
-        const user = await this.repository.create({
-            id, email, name, last_name, password
+        const user = this.repository.create({
+            id, avatar, email, name, last_name, password
         })
 
         await this.repository.save(user)

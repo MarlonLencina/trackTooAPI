@@ -6,6 +6,8 @@ import {
     container
 } from "tsyringe"
 
+import "../infra/Providers"
+
 container.registerSingleton<IUsersRepository>(
     "UsersRepository",
     UsersRepository

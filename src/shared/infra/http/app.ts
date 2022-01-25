@@ -1,6 +1,7 @@
 import "reflect-metadata"
 import "express-async-errors"
 import "../../Container"
+import 'dotenv/config'
 
 import express, { NextFunction, Request, Response } from "express";
 import { routes } from "./routes";
