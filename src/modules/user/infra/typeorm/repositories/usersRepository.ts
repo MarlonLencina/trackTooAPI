@@ -12,13 +12,37 @@ export class UsersRepository implements IUsersRepository {
     }
 
 
-    public async createUser({email, name, last_name, password}: ICreateUserDTO): Promise<User> {
+    public async createUser({email, name, last_name, password, id}: ICreateUserDTO): Promise<User> {
 
         const user = await this.repository.create({
-            email, name, last_name, password
+            id, email, name, last_name, password
         })
 
         await this.repository.save(user)
+        return user
+
+    }
+
+    public async findUserById (userId: string): Promise<User> {
+
+        const user = await this.repository.findOne({
+            where: {
+                id: userId
+            }
+        })
+
+        return user
+
+    }
+
+    public async findUserByMail(mail: string): Promise<User> {
+
+        const user = await this.repository.findOne({
+            where: {
+                email: mail
+            }
+        })
+
         return user
 
     }

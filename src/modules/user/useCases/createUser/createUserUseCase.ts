@@ -1,6 +1,7 @@
 import { IUsersRepository } from "modules/user/repositories/IUsersRepository";
 import { AppError } from "shared/Errors/appError";
 import { inject, injectable } from "tsyringe";
+import {hash} from "bcryptjs"
 
 interface IRequest {
     email: string;
@@ -27,8 +28,16 @@ export class CreateUserUseCase {
         if(!email || !last_name || !name || !password){
             throw new AppError("Missing credentials to create a new account", 401)
         }
+
+        const emailIsInUse = await this.UsersRepository.findUserByMail(email)
+
+        if(emailIsInUse) {
+            throw new AppError("Email is already in yse", 401)
+        }
         
-        const user = await this.UsersRepository.createUser({email, last_name, name, password})
+        const hashedPassword = await hash(password, 8)
+
+        const user = await this.UsersRepository.createUser({email, last_name, name, password: hashedPassword})
 
         return user
 
