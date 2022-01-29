@@ -7,6 +7,11 @@ import {sign} from "jsonwebtoken"
 import { jwtconfig } from "@config/jwt.config";
 import { compare, hash } from "bcryptjs";
 import { User } from "@modules/user/infra/typeorm/entities/users.entity";
+import { IRefreshTokenRepository } from "@modules/user/repositories/IRefreshTokenRepository";
+import { addHours } from "date-fns";
+import { instanceToInstance } from "class-transformer";
+import { UserMap } from "@modules/user/mapper/UserMap";
+import { IUserResponseDTO } from "@modules/user/DTO/IUserResponseDTO";
 
 interface IRequest {
     email: string;
@@ -15,7 +20,8 @@ interface IRequest {
 
 interface IResponse {
     token: string;
-    user: User;
+    user: IUserResponseDTO;
+    refreshToken: string;
 }
 
 @injectable()
@@ -23,7 +29,9 @@ export class SignInUserUseCase {
 
     constructor(
         @inject("UsersRepository")
-        private UsersRepository: IUsersRepository
+        private UsersRepository: IUsersRepository,
+        @inject("RefreshTokenRepository")
+        private RefreshTokenRepository: IRefreshTokenRepository
     ) {}
 
     public async execute(
@@ -53,8 +61,14 @@ export class SignInUserUseCase {
             expiresIn: jwtconfig.expiresIn
         })
 
+        const expires_in = addHours(new Date(), 24)
+
+        const {id} = await this.RefreshTokenRepository.generateRefreshToken(user.id, expires_in)
+
+        const mappedUser = UserMap.toDTO(user)
+
         return {
-            user, token
+            user: mappedUser, token, refreshToken: id
         }
 
     }

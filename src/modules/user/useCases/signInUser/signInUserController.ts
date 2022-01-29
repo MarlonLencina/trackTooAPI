@@ -13,13 +13,15 @@ export class SignInUserController {
 
         const signInUserUseCase = container.resolve(SignInUserUseCase)
 
-        const {user, token} = await signInUserUseCase.execute({
+        const {user, token, refreshToken} = await signInUserUseCase.execute({
             email, password
         })
 
         res.status(201).json({
-            token,
             message: "User succesfully logged in.",
+
+            token,
+            refreshToken,
             user
         })
 

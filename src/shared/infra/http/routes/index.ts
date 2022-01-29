@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { passwordRoutes } from "./password.routes";
+import { refreshTokenRoutes } from "./refreshToken.routes";
 import { signInRoutes } from "./signin.routes";
 import { trackRoutes } from "./track.routes";
 
@@ -11,6 +12,7 @@ routes.use("/users", usersRoutes)
 routes.use("/signin", signInRoutes)
 routes.use("/password", passwordRoutes)
 routes.use("/track", trackRoutes)
+routes.use("/refresh-token", refreshTokenRoutes)
 
 
 

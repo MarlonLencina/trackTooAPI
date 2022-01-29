@@ -27,7 +27,7 @@ export const ensureAuthenticated = (req: Request, res: Response, next: NextFunct
 
     } catch (error) {
 
-        throw new AppError('token is invalid.', 401)
+        throw new AppError(error.message, 401)
         
         
     }

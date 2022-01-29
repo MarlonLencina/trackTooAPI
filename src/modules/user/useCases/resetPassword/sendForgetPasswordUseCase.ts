@@ -44,11 +44,9 @@ export class SendForgotPasswordUseCase {
 
         await this.MailgunProvider.sendEmail({
             email: user.email,
-            link: `http://localhost:3000/reset/${newToken.token}`,
+            link: `http://localhost:3000/reset/${newToken.token}}`,
             name: user.name
         })
-
-        console.log(newToken)
 
         return {
             token: newToken

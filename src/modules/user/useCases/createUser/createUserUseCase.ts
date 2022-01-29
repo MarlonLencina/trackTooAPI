@@ -2,6 +2,8 @@ import { IUsersRepository } from "modules/user/repositories/IUsersRepository";
 import { AppError } from "shared/Errors/appError";
 import { inject, injectable } from "tsyringe";
 import {hash} from "bcryptjs"
+import { UserMap } from "@modules/user/mapper/UserMap";
+import {IUserResponseDTO} from '../../DTO/IUserResponseDTO'
 
 interface IRequest {
     email: string;
@@ -23,7 +25,7 @@ export class CreateUserUseCase {
         last_name,
         name,
         password
-    }: IRequest){
+    }: IRequest): Promise<IUserResponseDTO>{
 
         if(!email || !last_name || !name || !password){
             throw new AppError("Missing credentials to create a new account", 401)
@@ -39,7 +41,9 @@ export class CreateUserUseCase {
 
         const user = await this.UsersRepository.createUser({email, last_name, name, password: hashedPassword})
 
-        return user
+        const mappedUser = UserMap.toDTO(user)
+
+        return mappedUser
 
 
     }

@@ -1,29 +1,32 @@
 import { IUserResponseDTO } from "@modules/user/DTO/IUserResponseDTO";
-import { User } from "@modules/user/infra/typeorm/entities/users.entity";
 import { UserMap } from "@modules/user/mapper/UserMap";
 import { IUsersRepository } from "@modules/user/repositories/IUsersRepository";
+import { hash } from "bcryptjs";
 import { AppError } from "shared/Errors/appError";
-import { IStorageProvider } from "shared/infra/Providers/IStorage";
 import { inject, injectable } from "tsyringe";
 
 interface IRequest {
     user_id: string;
-    file: Express.Multer.File;
+    name?: string;
+    last_name?: string;
+    email?: string;
+    password?: string;
 }
 
 @injectable()
-export class UploadAvatarUseCase {
+export class UpdateInfoUseCase {
 
     constructor(
         @inject("UsersRepository")
         private UsersRepository: IUsersRepository,
-        @inject("StorageProvider")
-        private StorageProvider: IStorageProvider
     ) {}
 
     public async execute({
-        file,
-        user_id
+        user_id,
+        email,
+        last_name,
+        name,
+        password
     }: IRequest): Promise<IUserResponseDTO> 
     {        
         const user = await this.UsersRepository.findUserById(user_id)
@@ -32,20 +35,19 @@ export class UploadAvatarUseCase {
             throw new AppError("User is invalid.", 401)
         }
 
-        if(user.avatar){
-            await this.StorageProvider.delete('avatars', user.avatar)
-        }
+        const updatedUser = Object.assign(user, {
+            email,
+            last_name,
+            name
+        })
 
-        user.avatar = file.filename
+        if(password) updatedUser.password = await hash(password, 8)
+        
+        await this.UsersRepository.createUser(updatedUser)
 
-        await this.StorageProvider.save('avatars', file.filename, file.mimetype)
-
-        await this.UsersRepository.createUser(user)
-
-        const mappedUser = UserMap.toDTO(user)
+        const mappedUser = UserMap.toDTO(user) 
 
         return mappedUser
-
     }
 
 }

@@ -2,9 +2,7 @@ import { IUsersRepository } from "modules/user/repositories/IUsersRepository";
 import { AppError } from "shared/Errors/appError";
 import { inject, injectable } from "tsyringe";
 import { IResetTokenRepository } from "@modules/user/repositories/IResetTokenRepository";
-import {v4 as uuidv4} from "uuid"
-import {addHours, isAfter, isBefore} from 'date-fns'
-import { ResetToken } from "@modules/user/infra/typeorm/entities/resetToken.entity";
+import {isBefore} from 'date-fns'
 import { hash } from "bcryptjs";
 
 

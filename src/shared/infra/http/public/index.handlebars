@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <meta charset="UTF-8">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"> 
+
+    <style>
+      * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.logoContainer {
+  width: 50%;
+  margin: auto;
+}
+
+.logo {
+  margin-top: 24px;
+  margin-bottom: 48px;
+}
+
+.container {
+  padding: 20px;
+  background-color: #E63946;
+  padding: 20px;
+  vertical-align: center;
+}
+
+.title {
+  margin-bottom: 24px;
+  font-size: 36px;
+  color: #F1FAEE;
+  text-align: center;
+}
+
+.ButtonContainer {
+  max-width: 35%;
+  margin: auto;
+  background: seagreen;
+}
+
+.ButtonChangePassword {
+
+  background-color: #1D3557;
+  padding: 16px 28px;
+  text-decoration: none;
+  margin-top: 36px;
+  margin-bottom: 36px;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+
+}
+
+.ButtonChangePassword span {
+  color: #F1FAEE;
+  font-size: 18px;
+}
+
+
+.text_over {
+  font-size: 16px;
+  color: #F1FAEE;
+  font-weight: 500;
+  text-align: center;
+
+}
+
+ .text_down {
+  font-size: 14px;
+  color: #F1FAEE;
+  font-weight: 400;
+  display: block;
+    text-align: center;
+
+
+}
+
+.list_steps {
+  margin-top: 36px;
+  list-style: none;
+    text-align: center;
+
+
+}
+
+.list_steps li {
+  font-size: 14px;
+  color: #F1FAEE;
+
+}
+
+.list_steps li + li {
+  margin-top: 12px;
+
+}
+
+.wrapper {
+
+display: block;
+margin: auto;
+vertical-align: center;
+padding: 70px 0;
+text-align: center;
+
+
+}
+
+    </style>
+
+</head>
+<body>
+  <div
+  class="container"
+  >
+
+  <div class="wrapper">
+    <img class="logo" src="https://tracktoo.s3.amazonaws.com/web/logo.png"/>
+    <h1 class="title">Recuperação de senha</h1>
+
+    <p class="text_over">
+      Óla {{name}}, Recebemos um pedido de alteração de senha, vindo da sua conta. para proseguir com a atualização siga os passos abaixo, caso não tenha sido voce sinta-se confiante para apenas ignorar este e-mail.
+    </p>
+
+    <ul class="list_steps">
+      
+      <li>
+        1. Basta clicar no botão abaixo e lhe redirecioremos voce para a pagina de alteração
+      </li>
+
+      <li>2. Pronto! agora basta inserir sua nova senha.</li>
+
+    </ul>
+    </span>
+
+    <div class="ButtonContainer">
+    <a class="ButtonChangePassword" href={{link}}>
+      <span>
+        Alterar senha
+      </span>
+    </a>
+    </div>
+
+
+  <span class="text_down">
+      A staff da trackTOO agradece sua colaboração e utilização de nosso sistema, Ass. <b>Marlon Lencina</b> 
+    </span>
+
+</div>
+  </div>
+    
+</body>
+</html>

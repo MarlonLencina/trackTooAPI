@@ -1,3 +1,4 @@
+import { Expose } from "class-transformer";
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("users")
@@ -23,4 +24,12 @@ export class User {
 
     @CreateDateColumn()
     created_at: Date;
+
+    @Expose({
+        name: "avatar_url",
+      })
+    get avatar_url(): string {
+        return `https://tracktoo.s3.amazonaws.com/avatars/${this.avatar}`;
+    }
+    
 }
